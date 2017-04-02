@@ -1,0 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/11 01:04:19 by bmerrill          #+#    #+#             */
+/*   Updated: 2017/03/11 01:11:38 by bmerrill         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
+typedef enum e_bool
+{
+    FALSE, TRUE
+} t_bool;
+
+typedef struct s_optional
+{
+    t_bool
+} t_optional;
