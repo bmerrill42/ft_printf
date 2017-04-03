@@ -18,7 +18,10 @@
     arg = va_arg(va,type);                      \
     fn(arg);                                    \
     return(ret)
-int print_d(va_list va, int flags)
+#define FLAG_SIG(x) \
+  x == '-' || x == '+' || x == ' ' || x == '#' || x == 0
+
+int print_d(va_list va, unsigned char flags)
 {
     flags = ~flags;
     int arg = va_arg(va, int);
@@ -26,12 +29,12 @@ int print_d(va_list va, int flags)
     return(2);
 }
 
-int print_c(va_list va, int flags)
+int print_c(va_list va, unsigned char flags)
 {
     print_anything(va, flags, ft_putchar, int, 1);
 }
 
-int print_s(va_list va, int flags)
+int print_s(va_list va, unsigned char flags)
 {
     print_anything(va,flags,ft_putstr,char*, ft_strlen(arg));
 }
@@ -41,7 +44,7 @@ enum flag {MINUS_FLAG = 1, PLUS_FLAG = 2, SPACE_FLAG = 4, HASH_FLAG = 8, ZERO_FL
 
 typedef struct s_fmt{
     char c;
-    int (*fn)(va_list, int);
+    int (*fn)(va_list, unsigned char);
 
 } t_fmt;
 
@@ -62,6 +65,13 @@ t_fmt fmt_spec[128] = {
 //    ['C'] = {'C', print_C},
 };
 
+int get_flags(char x, unsigned char flags)
+{
+  if ()
+    ;
+  return (flags);
+}
+
 int my_printf(char *fmt, ...)
 {
     va_list va;
@@ -73,6 +83,8 @@ int my_printf(char *fmt, ...)
     while (*c) {
         if (*c == '%') {
             ++c;
+	    while(FLAG_SIG(*c))
+	      flags = get_flags(*c++);
             printed += fmt_spec[(int) *c++].fn(va, flags);
         } else {
             ++printed;
