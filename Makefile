@@ -6,14 +6,14 @@ OFILES = $(addsuffix .o,$(FILENAMES))
 all: $(NAME)
 
 $(NAME):
-gcc -c $(CFILES)
-ar rc $(NAME) $(OFILES)
-ranlib $(NAME)
+	gcc -c $(CFILES)
+	ar rc $(NAME) $(OFILES)
+	ranlib $(NAME)
 
 clean:
-rm -f $(OFILES)
+	rm -f $(OFILES)
 
 fclean: clean
-rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
