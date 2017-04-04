@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/03 18:33:58 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/03 18:37:03 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,10 @@ void get_width(char **str_p, t_optional *options)
 
 void get_length_flags(char **str_p, t_optional *options)
 {
-    while(LENGTH_SIG(*(*str_p)))
+  if (*(*str_p) == 'h' && *(*str_p + 1) == 'h')
     {
-        if ()
-        {
-        }
-        else
-        {
-        }
+      options->flags |= HH_FLAG;
+      *str_p += 2;
     }
 }
 
@@ -147,7 +143,7 @@ int ft_printf(char *fmt, ...)
 
 int main(void)
 {
-    ft_printf("%-+0 #456.615d %s\n", 42, "YES");
+    ft_printf("%-+0 #456.615hhd %s\n", 42, "YES");
 }
 /* Local Variables: */
 /* compile-command: "gcc -Wall -Werror -Wextra -g -L libft/ -lft ft_printf.c" */
