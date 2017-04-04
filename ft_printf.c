@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 15:27:37 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:42:47 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void get_precision(char **str_p, t_optional *options, va_list va)
     {
         options->precision = va_arg(va, int);
         options->flags |= PRECISION_FLAG;
+        (*str_p)++;
         return ;
     }
     while(ft_isdigit(*(*str_p)))
@@ -98,6 +99,7 @@ void get_width(char **str_p, t_optional *options, va_list va)
     {
         options->width = va_arg(va, int);
         options->flags |= WIDTH_FLAG;
+        (*str_p)++;
         return ;
     }
     while(ft_isdigit(*(*str_p)))
