@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/03 17:21:08 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/03 17:59:53 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
     arg = va_arg(va,type);                      \
     fn(arg);                                    \
     return(ret)
-#define FLAG_SIG(x) \
+#define FLAG_SIG(x)                                             \
     x == '-' || x == '+' || x == ' ' || x == '#' || x == '0'
+#define LENGTH_SIG(x)                           \
+    x == 'h' || x == 'l' || x == 'j' || x == 'z'
 
 enum flag {MINUS_FLAG = 0x0001, PLUS_FLAG = 0x0002, SPACE_FLAG = 0x0004, HASH_FLAG = 0x0008, ZERO_FLAG = 0x0010, HH_FLAG = 0x0020, H_FLAG = 0x0040, L_FLAG = 0x0080, LL_FLAG = 0x0100, J_FLAG = 0x0200, Z_FLAG = 0x0400, WIDTH_FLAG = 0x0800, PRECISION_FLAG = 0x1000};
 
@@ -37,7 +39,7 @@ typedef struct s_fmt{
 
 
 
-t_fmt fmt_spec[128] = {
+t_fmt g_fmt_spec[128] = {
 //    ['s'] = {'s', print_s},
 //    ['S'] = {'S', print_S},
 //    ['p'] = {'p', print_p},
@@ -57,16 +59,16 @@ t_fmt fmt_spec[128] = {
 
 void get_flags(char x, t_optional *options)
 {
-  if (x == '-')
-    options->flags |= MINUS_FLAG;
-  if (x == '+')
-      options->flags |= PLUS_FLAG;
-  if (x == ' ')
-      options->flags |= SPACE_FLAG;
-  if (x == '#')
-      options->flags |= HASH_FLAG;
-  if (x == '0')
-      options->flags |= ZERO_FLAG;
+    if (x == '-')
+        options->flags |= MINUS_FLAG;
+    if (x == '+')
+        options->flags |= PLUS_FLAG;
+    if (x == ' ')
+        options->flags |= SPACE_FLAG;
+    if (x == '#')
+        options->flags |= HASH_FLAG;
+    if (x == '0')
+        options->flags |= ZERO_FLAG;
 }
 
 void get_precision(char **str_p, t_optional *options)
@@ -105,28 +107,34 @@ int ft_printf(char *fmt, ...)
 
     ft_bzero(&optional, sizeof(t_optional));
     va_start(va, fmt);
-    while (*c) {
-        if (*c == '%') {
+    while (*c)
+    {
+        if (*c == '%')
+        {
             ++c;
-	    while(FLAG_SIG(*c))
-            get_flags(*c++, &optional);
-        if (ft_isdigit(*c))
-            get_width(&c, &optional);
-        if (*c == '.')
-            get_precision(&c, &optional);
-        printed += fmt_spec[(int) *c++].fn(va, &optional);
-        } else {
+
+            while(FLAG_SIG(*c))
+                get_flags(*c++, &optional);
+            if (ft_isdigit(*c))
+                get_width(&c, &optional);
+            if (*c == '.')
+                get_precision(&c, &optional);
+            if (LENGTH_SIG(*c))
+                get_length_flags(&c, &optional);
+            printed += g_fmt_spec[(int) *c++].fn(va, &optional);
+        }
+        else
+        {
             ++printed;
             ft_putchar(*c++);
         }
     }
-
     return printed;
 }
 
 int main(void)
 {
-    ft_printf("%+0 #456.615d %s\n", 42, "YES");
+    ft_printf("%-+0 #456.615d %s\n", 42, "YES");
 }
 /* Local Variables: */
 /* compile-command: "gcc -Wall -Werror -Wextra -g -L libft/ -lft ft_printf.c" */
