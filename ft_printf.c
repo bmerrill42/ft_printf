@@ -6,46 +6,29 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/03 18:37:03 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 13:44:18 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "libft/libft.h"
-#define print_anything(va,flags,fn,type, ret)   \
-    flags = ~flags;                             \
-    type arg;                                   \
-    arg = va_arg(va,type);                      \
-    fn(arg);                                    \
-    return(ret)
-#define FLAG_SIG(x)                                             \
-    x == '-' || x == '+' || x == ' ' || x == '#' || x == '0'
-#define LENGTH_SIG(x)                           \
-    x == 'h' || x == 'l' || x == 'j' || x == 'z'
+#include "printf.h"
 
-enum flag {MINUS_FLAG = 0x0001, PLUS_FLAG = 0x0002, SPACE_FLAG = 0x0004, HASH_FLAG = 0x0008, ZERO_FLAG = 0x0010, HH_FLAG = 0x0020, H_FLAG = 0x0040, L_FLAG = 0x0080, LL_FLAG = 0x0100, J_FLAG = 0x0200, Z_FLAG = 0x0400, WIDTH_FLAG = 0x0800, PRECISION_FLAG = 0x1000};
+char *print_d(va_list va, t_optional *options)
+{
+    int arg;
+    char *ret;
 
-typedef struct s_optional {
-    unsigned short flags;
-    unsigned int width;
-    unsigned int precision;
-} t_optional;
-
-typedef struct s_fmt{
-    char c;
-    int (*fn)(va_list, t_optional*);
-
-} t_fmt;
-
-
+    arg = va_arg(va, int);
+    ret = ft_itoa_base(arg, 10);
+    return (ret);
+}
 
 t_fmt g_fmt_spec[128] = {
 //    ['s'] = {'s', print_s},
 //    ['S'] = {'S', print_S},
 //    ['p'] = {'p', print_p},
-//    ['d'] = {'d', print_d},
+    ['d'] = {'d', print_d},
 //    ['D'] = {'D', print_D},
-//    ['i'] = {'i', print_i},
+    ['i'] = {'i', print_d},
 //    ['o'] = {'o', print_o},
 //    ['O'] = {'O', print_O},
 //    ['u'] = {'u', print_u},
@@ -55,8 +38,6 @@ t_fmt g_fmt_spec[128] = {
 //    ['c'] = {'c', print_c},
 //    ['C'] = {'C', print_C},
 };
-
-
 
 
 void get_flags(char x, t_optional *options)
@@ -73,7 +54,7 @@ void get_flags(char x, t_optional *options)
         options->flags |= ZERO_FLAG;
 }
 
-void get_precision(char **str_p, t_optional *options)
+void get_precision(char **str_p, t_optional *options, va_list va)
 {
     char atoi_str[12];
     int index;
@@ -81,19 +62,31 @@ void get_precision(char **str_p, t_optional *options)
     index = 0;
     ft_bzero(atoi_str, 12);
     (*str_p)++;
+    if (*(*str_p) == '*')
+    {
+        options->precision = va_arg(va, int);
+        options->flags |= PRECISION_FLAG;
+        return ;
+    }
     while(ft_isdigit(*(*str_p)))
         atoi_str[index++] = *((*str_p)++);
     options->precision = ft_atoi(atoi_str);
     options->flags |= PRECISION_FLAG;
 }
 
-void get_width(char **str_p, t_optional *options)
+void get_width(char **str_p, t_optional *options, va_list va)
 {
     char atoi_str[12];
     int index;
 
     index = 0;
     ft_bzero(atoi_str, 12);
+    if (*(*str_p) == '*')
+    {
+        options->width = va_arg(va, int);
+        options->flags |= WIDTH_FLAG;
+        return ;
+    }
     while(ft_isdigit(*(*str_p)))
         atoi_str[index++] = *((*str_p)++);
     options->width = ft_atoi(atoi_str);
@@ -102,10 +95,38 @@ void get_width(char **str_p, t_optional *options)
 
 void get_length_flags(char **str_p, t_optional *options)
 {
-  if (*(*str_p) == 'h' && *(*str_p + 1) == 'h')
+    while (LENGTH_SIG(*(*str_p)))
     {
-      options->flags |= HH_FLAG;
-      *str_p += 2;
+        if (*(*str_p) == 'h' && *(*str_p + 1) == 'h')
+        {
+            options->flags |= HH_FLAG;
+            *str_p += 2;
+        }
+        if (*(*str_p) == 'h' && *(*str_p + 1) != 'h')
+        {
+            options->flags |= H_FLAG;
+            (*str_p)++;
+        }
+        if (*(*str_p) == 'l' && *(*str_p + 1) == 'l')
+        {
+            options->flags |= LL_FLAG;
+            *str_p += 2;
+        }
+        if (*(*str_p) == 'l' && *(*str_p + 1) != 'l')
+        {
+            options->flags |= L_FLAG;
+            (*str_p)++;
+        }
+        if (*(*str_p) == 'j')
+        {
+            options->flags |= J_FLAG;
+            (*str_p)++;
+        }
+        if (*(*str_p) == 'z')
+        {
+            options->flags |= Z_FLAG;
+            (*str_p)++;
+        }
     }
 }
 
@@ -115,7 +136,7 @@ int ft_printf(char *fmt, ...)
     char *c = fmt;
     int printed = 0;
     t_optional optional;
-
+    char *str_f;
     ft_bzero(&optional, sizeof(t_optional));
     va_start(va, fmt);
     while (*c)
@@ -126,13 +147,16 @@ int ft_printf(char *fmt, ...)
 
             while(FLAG_SIG(*c))
                 get_flags(*c++, &optional);
-            if (ft_isdigit(*c))
-                get_width(&c, &optional);
+            if (ft_isdigit(*c) || *c == '*')
+                get_width(&c, &optional, va);
             if (*c == '.')
-                get_precision(&c, &optional);
+                get_precision(&c, &optional, va);
             if (LENGTH_SIG(*c))
                 get_length_flags(&c, &optional);
-            printed += g_fmt_spec[(int) *c++].fn(va, &optional);
+            str_f = g_fmt_spec[(int) *c++].fn(va, &optional);
+            ft_putstr(str_f);
+            printed += ft_strlen(str_f);
+            free(str_f);
         }
         else
         {
@@ -142,11 +166,3 @@ int ft_printf(char *fmt, ...)
     }
     return printed;
 }
-
-int main(void)
-{
-    ft_printf("%-+0 #456.615hhd %s\n", 42, "YES");
-}
-/* Local Variables: */
-/* compile-command: "gcc -Wall -Werror -Wextra -g -L libft/ -lft ft_printf.c" */
-/* End: */

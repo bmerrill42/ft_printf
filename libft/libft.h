@@ -6,7 +6,7 @@
 /*   By: bmerrill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 20:57:29 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/03/11 15:21:35 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 13:35:33 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_stack
 	int				max_size;
 }					t_stack;
 
+char	*ft_itoa_base(int value, int base);
 int					get_next_line(const int fd, char **line);
 void				ft_stackpush(t_stack *stack, t_stackelem element);
 t_stackelem			ft_stackpop(t_stack *stack);
