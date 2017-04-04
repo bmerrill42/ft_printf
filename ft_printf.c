@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 15:26:21 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:27:37 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ int ft_printf(char *fmt, ...)
             str_f = g_fmt_spec[(int) *c++].fn(va, &optional);
             ft_putstr(str_f);
             printed += ft_strlen(str_f);
-            free(str_f);
         }
         else
         {
