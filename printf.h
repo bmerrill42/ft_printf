@@ -1,12 +1,6 @@
 
 #include <stdarg.h>
 #include "libft/libft.h"
-#define print_anything(va,flags,fn,type, ret)   \
-    flags = ~flags;                             \
-    type arg;                                   \
-    arg = va_arg(va,type);                      \
-    fn(arg);                                    \
-    return(ret)
 #define FLAG_SIG(x)                                             \
     x == '-' || x == '+' || x == ' ' || x == '#' || x == '0'
 #define LENGTH_SIG(x)                               \

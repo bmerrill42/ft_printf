@@ -6,12 +6,12 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 14:05:49 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 14:27:05 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-
+#include "libft/libft.h"
 char *print_d(va_list va, t_optional *options)
 {
     int arg;
