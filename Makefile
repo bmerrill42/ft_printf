@@ -7,7 +7,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C libft/
-	gcc -Wall -Werror -Wextra -c $(CFILES) -I .
+	gcc -Wall -Werror -Wextra -c $(CFILES) -I libft/
 	ar rc $(NAME) $(OFILES)
 	ranlib $(NAME)
 
