@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 15:24:30 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:26:21 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ char *print_d(va_list va, t_optional *options)
 
 char *print_c(va_list va, t_optional *options)
 {
-    static char arg[2];
+    char *arg;
     int flags;
 
+    arg = (char*)malloc(2);
     flags = ~(options->flags);
     arg[0] = va_arg(va, int);
     arg[1] = '\0';
