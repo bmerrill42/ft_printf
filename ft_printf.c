@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/03 17:59:53 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/03 18:33:58 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,19 @@ void get_width(char **str_p, t_optional *options)
         atoi_str[index++] = *((*str_p)++);
     options->width = ft_atoi(atoi_str);
     options->flags |= WIDTH_FLAG;
+}
+
+void get_length_flags(char **str_p, t_optional *options)
+{
+    while(LENGTH_SIG(*(*str_p)))
+    {
+        if ()
+        {
+        }
+        else
+        {
+        }
+    }
 }
 
 int ft_printf(char *fmt, ...)
