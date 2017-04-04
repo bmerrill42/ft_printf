@@ -98,6 +98,16 @@ void get_width(char **str_p, t_optional *options)
     options->flags |= WIDTH_FLAG;
 }
 
+void get_length_flags(char **str_p, t_optional *options)
+{
+  if (*(*str_p) == 'h' && *(*str_p + 1) == 'h')
+    {
+      options->flags |= HH_FLAG;
+      *str_p += 2;
+    }
+    
+    
+}
 int ft_printf(char *fmt, ...)
 {
     va_list va;
@@ -134,7 +144,7 @@ int ft_printf(char *fmt, ...)
 
 int main(void)
 {
-    ft_printf("%-+0 #456.615d %s\n", 42, "YES");
+    ft_printf("%-+0 #456.615hhd %s\n", 42, "YES");
 }
 /* Local Variables: */
 /* compile-command: "gcc -Wall -Werror -Wextra -g -L libft/ -lft ft_printf.c" */
