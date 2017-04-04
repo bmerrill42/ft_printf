@@ -1,4 +1,4 @@
-NAME = ft_printf.a
+NAME = libftprintf.a
 FILENAMES = ft_printf
 CFILES = $(addsuffix .c,$(FILENAMES))
 OFILES = $(addsuffix .o,$(FILENAMES))
