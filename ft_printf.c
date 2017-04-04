@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 14:53:03 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:01:57 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,22 @@ char *print_d(va_list va, t_optional *options)
     return (ret);
 }
 
+char *print_c(va_list va, t_optional *options)
+{
+    int arg;
+    char *ret;
+    int flags;
+    char *tmp;
+
+    ret = ft_strnew(0);
+    flags = ~(options->flags);
+    arg = va_arg(va, int);
+    tmp = ret;
+    ret = ft_strjoin(ret, &(char)arg);
+    free(tmp);
+    return (ret);
+}
+
 t_fmt g_fmt_spec[128] = {
 //    ['s'] = {'s', print_s},
 //    ['S'] = {'S', print_S},
@@ -36,7 +52,7 @@ t_fmt g_fmt_spec[128] = {
 //    ['U'] = {'U', print_U},
 //    ['x'] = {'x', print_x},
 //    ['X'] = {'X', print_X},
-//    ['c'] = {'c', print_c},
+    ['c'] = {'c', print_c},
 //    ['C'] = {'C', print_C},
 };
 
