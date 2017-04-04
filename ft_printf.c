@@ -57,6 +57,8 @@ t_fmt g_fmt_spec[128] = {
 };
 
 
+
+
 void get_flags(char x, t_optional *options)
 {
     if (x == '-')
