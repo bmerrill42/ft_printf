@@ -6,18 +6,18 @@ OFILES = $(addsuffix .o,$(FILENAMES))
 all: $(NAME)
 
 $(NAME):
-#	make -C libft/
+	make -C libft/
 	gcc -c $(CFILES)
 	ar rc $(NAME) $(OFILES)
 	ranlib $(NAME)
 
 clean:
-#	make -C libft/ clean
+	make -C libft/ clean
 	rm -f $(OFILES)
 
 fclean: clean
-#	make -C libft/ fclean
+	make -C libft/ fclean
 	rm -f $(NAME)
 
 re: fclean all
-#	make -C libft/ re
+	make -C libft/ re
