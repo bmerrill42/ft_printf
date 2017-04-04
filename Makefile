@@ -7,7 +7,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C libft/
-	gcc -c $(CFILES) libft/libft.a
+	gcc -c -L libft/ -l lft $(CFILES)
 	ar rc $(NAME) $(OFILES)
 	ranlib $(NAME)
 
