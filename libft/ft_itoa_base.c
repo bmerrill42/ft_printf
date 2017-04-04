@@ -6,7 +6,7 @@
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 09:08:01 by exam              #+#    #+#             */
-/*   Updated: 2017/04/04 10:06:07 by exam             ###   ########.fr       */
+/*   Updated: 2017/04/04 14:54:55 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -57,9 +57,4 @@ char	*ft_itoa_base(int value, int base)
 		value /= base;
 	}
 	return(ret);
-}
-
-int main(void)
-{
-	char *test = ft_itoa_base(0, 2);
 }
