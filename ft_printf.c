@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 15:11:10 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:12:56 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char *print_c(va_list va, t_optional *options)
     int flags;
     char *tmp;
 
-    ret = ft_strnew(0);
+    ret = ft_strnew(2);
     flags = ~(options->flags);
     arg = va_arg(va, int);
     tmp = ret;
