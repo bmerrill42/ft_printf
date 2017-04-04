@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 13:44:18 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 14:05:49 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char *print_d(va_list va, t_optional *options)
 {
     int arg;
     char *ret;
-
+    int flags;
+    flags = ~(options->flags);
     arg = va_arg(va, int);
     ret = ft_itoa_base(arg, 10);
     return (ret);
