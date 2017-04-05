@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int get_conv_size(int value, int base)
+int get_conv_size(unsigned int value, int base)
 {
 	int i;
 
