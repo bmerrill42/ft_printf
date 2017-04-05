@@ -6,20 +6,45 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 16:28:21 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 22:04:57 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+char *print_x(va_list va, t_optional *options)
+{
+    unsigned int arg;
+    char *ret;
+    int flags;
+
+    flags = options->flags;
+    arg = va_arg(va, unsigned int);
+    ret = ft_itoa_base(arg, 16);
+    return (ret);
+}
+
+char *print_o(va_list va, t_optional *options)
+{
+    int arg;
+    char *ret;
+    int flags;
+
+    flags = options->flags;
+    arg = va_arg(va, int);
+    ret = ft_itoa_base(arg, 8);
+    return (ret);
+}
 
 char *print_d(va_list va, t_optional *options)
 {
     int arg;
     char *ret;
     int flags;
-    flags = ~(options->flags);
+
+    flags = options->flags;
     arg = va_arg(va, int);
-    ret = ft_itoa_base(arg, 10);
+    ret = ft_itoa(arg);
     return (ret);
 }
 
@@ -50,11 +75,11 @@ t_fmt g_fmt_spec[128] = {
     ['d'] = {'d', print_d},
 //    ['D'] = {'D', print_D},
     ['i'] = {'i', print_d},
-//    ['o'] = {'o', print_o},
+    ['o'] = {'o', print_o},
 //    ['O'] = {'O', print_O},
 //    ['u'] = {'u', print_u},
 //    ['U'] = {'U', print_U},
-//    ['x'] = {'x', print_x},
+    ['x'] = {'x', print_x},
 //    ['X'] = {'X', print_X},
     ['c'] = {'c', print_c},
 //    ['C'] = {'C', print_C},
