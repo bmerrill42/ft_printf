@@ -19,6 +19,7 @@ char *print_x(va_list va, t_optional *options)
     int flags;
 
     flags = options->flags;
+    flags++;
     arg = va_arg(va, unsigned int);
     ret = ft_itoa_base(arg, 16);
     return (ret);
@@ -31,6 +32,7 @@ char *print_o(va_list va, t_optional *options)
     int flags;
 
     flags = options->flags;
+    flags++;
     arg = va_arg(va, int);
     ret = ft_itoa_base(arg, 8);
     return (ret);
@@ -43,6 +45,7 @@ char *print_d(va_list va, t_optional *options)
     int flags;
 
     flags = options->flags;
+    flags++;
     arg = va_arg(va, int);
     ret = ft_itoa(arg);
     return (ret);
