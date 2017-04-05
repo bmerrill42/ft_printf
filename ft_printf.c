@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/04 15:42:47 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 16:28:21 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,22 @@ char *print_d(va_list va, t_optional *options)
 
 char *print_c(va_list va, t_optional *options)
 {
-    char *arg;
-    int flags;
+    int arg;
+    int size;
+    char *ret;
 
-    arg = (char*)malloc(2);
-    flags = ~(options->flags);
-    arg[0] = va_arg(va, int);
-    arg[1] = '\0';
-    return (arg);
+    size = 1;
+    arg = va_arg(va, int);
+    if (options->width > 0)
+        size = options->width;
+    ret = (char*)malloc(size);
+    ft_memset(ret, ' ', size);
+    if (!(options->flags & MINUS_FLAG))
+        ret[size - 1] = arg;
+    else
+        ret[0] = arg;
+    ret[size] = '\0';
+    return (ret);
 }
 
 t_fmt g_fmt_spec[128] = {

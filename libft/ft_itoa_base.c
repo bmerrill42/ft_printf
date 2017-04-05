@@ -6,7 +6,7 @@
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 09:08:01 by exam              #+#    #+#             */
-/*   Updated: 2017/04/04 14:54:55 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/04 21:15:48 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -16,9 +16,11 @@ int get_conv_size(int value, int base)
 	int i;
 
 	i = 0;
-	/*DON'T FORGET ZERO*/
 	if (value == 0)
+	{
 		i++;
+		return(i);
+	}
 	while(value)
 	{
 		value /= base;
@@ -45,16 +47,16 @@ char	*ft_itoa_base(int value, int base)
 /* 	get the size */
 	size = get_conv_size(value, base);
 /* 	malloc */
-	ret = (char*)malloc(sizeof(char) * (size + neg) + 1);
+	ret = (char*)malloc(sizeof(char) * ((size + neg) + 1));
 /* 	convert to base */
 	if (neg)
-		ret[0] = '-';
-	else
-		size--;
+		size++;
 	while(size >= 0)
 	{
-		ret[size--] = conv[value % base];
+		ret[--size] = conv[value % base];
 		value /= base;
 	}
+	if (neg)
+		ret[0] = '-';
 	return(ret);
 }
