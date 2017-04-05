@@ -6,10 +6,11 @@
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 09:08:01 by exam              #+#    #+#             */
-/*   Updated: 2017/04/04 21:58:07 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:09:06 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
+
+#include "libft.h"
 
 int get_conv_size(int value, int base)
 {
@@ -29,7 +30,7 @@ int get_conv_size(int value, int base)
 	return(i);
 }
 
-char	*ft_itoa_base(unsigned long value, int base)
+char	*ft_itoa_base(unsigned int value, int base)
 {
 	int size;
 	char *ret;
