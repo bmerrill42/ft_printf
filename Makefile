@@ -1,4 +1,4 @@
-NAME = ft_printf.a
+NAME = libftprintf.a
 FILENAMES = ft_printf
 CFILES = $(addsuffix .c,$(FILENAMES))
 OFILES = $(addsuffix .o,$(FILENAMES))
@@ -7,8 +7,8 @@ all: $(NAME)
 
 $(NAME):
 	make -C libft/
-	gcc -c -L libft/ -lft $(CFILES)
-	ar rc $(NAME) $(OFILES)
+	gcc -Wall -Werror -Wextra -c $(CFILES) -I ./libft/ -I ./ -o $(OFILES)
+	ar rc $(NAME) $(OFILES) libft/*.o
 	ranlib $(NAME)
 
 clean:
