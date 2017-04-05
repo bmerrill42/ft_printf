@@ -85,7 +85,6 @@ t_fmt g_fmt_spec[128] = {
 //    ['C'] = {'C', print_C},
 };
 
-
 void get_flags(char x, t_optional *options)
 {
     if (x == '-')
@@ -192,7 +191,6 @@ int ft_printf(char *fmt, ...)
         if (*c == '%')
         {
             ++c;
-
             while(FLAG_SIG(*c))
                 get_flags(*c++, &optional);
             if (ft_isdigit(*c) || *c == '*')
