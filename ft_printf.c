@@ -38,7 +38,6 @@ typedef struct s_fmt{
 } t_fmt;
 
 
-
 t_fmt g_fmt_spec[128] = {
 //    ['s'] = {'s', print_s},
 //    ['S'] = {'S', print_S},
@@ -55,9 +54,6 @@ t_fmt g_fmt_spec[128] = {
 //    ['c'] = {'c', print_c},
 //    ['C'] = {'C', print_C},
 };
-
-
-
 
 void get_flags(char x, t_optional *options)
 {
@@ -123,7 +119,6 @@ int ft_printf(char *fmt, ...)
         if (*c == '%')
         {
             ++c;
-
             while(FLAG_SIG(*c))
                 get_flags(*c++, &optional);
             if (ft_isdigit(*c))
