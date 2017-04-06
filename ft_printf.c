@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/06 15:05:20 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/06 16:54:44 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,10 +181,10 @@ char *print_x(va_list va, t_optional *options)
     ret = ft_itoa_base(arg, 16);
     ret = ft_tolower_str(ret);
 
-    if (options->flags & HASH_FLAG && arg > 0 && !(options->flags & WIDTH_FLAG))
-        ret = ft_strjoin("0x", ret);
+    if ((options->flags & (HASH_FLAG) && arg > 0) && !((options-> flags & (WIDTH_FLAG | ZERO_FLAG)) == (WIDTH_FLAG | ZERO_FLAG)))
+            ret = ft_strjoin("0x", ret);
     ret = apply_flags_u(options, ret, arg);
-    if (options->flags & HASH_FLAG && options->flags & ZERO_FLAG)
+    if ((options->flags & (ZERO_FLAG | HASH_FLAG | WIDTH_FLAG)) == (ZERO_FLAG | HASH_FLAG | WIDTH_FLAG) && !(options->flags & MINUS_FLAG))
     {
         ret[0] = '0';
         ret[1] = 'x';
