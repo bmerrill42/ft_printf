@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -12,7 +13,7 @@
 
 #include "libft.h"
 
-int get_conv_size(unsigned long long value, int base)
+static int get_conv_size(unsigned long long value, int base)
 {
 	int i;
 
@@ -27,7 +28,7 @@ int get_conv_size(unsigned long long value, int base)
 		value /= base;
 		i++;
 	}
-	return(--i);
+	return(i);
 }
 
 char	*ft_itoa_base(unsigned long long value, int base)
@@ -42,7 +43,7 @@ char	*ft_itoa_base(unsigned long long value, int base)
 /* 	convert to base */
 	while(size >= 0)
 	{
-		ret[size--] = conv[value % base];
+		ret[--size] = conv[value % base];
 		value /= base;
 	}
 	return(ret);

@@ -34,6 +34,8 @@ typedef struct		s_stack
 	int				max_size;
 }					t_stack;
 
+char				*ft_itoa_u(unsigned long long n);
+char	*ft_strjoin_free(char const *s1, char const *s2);
 char	*ft_itoa_base(unsigned long long value, int base);
 int					get_next_line(const int fd, char **line);
 void				ft_stackpush(t_stack *stack, t_stackelem element);

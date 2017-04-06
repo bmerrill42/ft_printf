@@ -11,6 +11,89 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include "libft/libft.h"
+#include <inttypes.h>
+#include <wchar.h>
+long long cast_length( long long arg, t_optional *options)
+{
+    if (options->flags & HH_FLAG)
+        return((char)arg);
+    if (options->flags & H_FLAG)
+        return((short)arg);
+    if (options->flags & LL_FLAG)
+        return(arg);
+    if (options->flags & L_FLAG)
+        return((long)arg);
+    if (options->flags & J_FLAG)
+        return((intmax_t)arg);
+    if (options->flags & Z_FLAG)
+        return((size_t)arg);
+    else
+        return((int)arg);
+}
+
+unsigned long long cast_length_u(unsigned long long arg, t_optional *options)
+{
+    if (options->flags & HH_FLAG)
+        return((unsigned char)arg);
+    if (options->flags & H_FLAG)
+        return((unsigned short)arg);
+    if (options->flags & LL_FLAG)
+        return(arg);
+    if (options->flags & L_FLAG)
+        return((unsigned long)arg);
+    if (options->flags & J_FLAG)
+        return((uintmax_t)arg);
+    if (options->flags & Z_FLAG)
+        return((size_t)arg);
+    else
+        return((unsigned int)arg);
+}
+
+char		*ft_tolower_str(char *str)
+{
+	char	*temp;
+
+	temp = str;
+	while (*temp != '\0')
+        {
+            if (*temp >= 65 && *temp <= 90)
+                *temp += 32;
+            temp++;
+        }
+	return (str);
+}
+char *print_o(va_list va, t_optional *options)
+{
+    unsigned long long arg;
+    char *ret;
+    int flags;
+    flags = options->flags;
+    flags++;
+    arg = va_arg(va, unsigned long long);
+    arg = cast_length(arg, options);
+    ret = ft_itoa_base(arg, 8);
+    if (options->flags & HASH_FLAG)
+        ret = ft_strjoin("0", ret);
+    return (ret);
+}
+
+char *print_x(va_list va, t_optional *options)
+{
+    unsigned long long arg;
+    char *ret;
+    int flags;
+
+    flags = options->flags;
+    flags++;
+    arg = va_arg(va, unsigned long long);
+    arg = cast_length_u(arg, options);
+    ret = ft_itoa_base(arg, 16);
+    ret = ft_tolower_str(ret);
+    if (options->flags & HASH_FLAG && arg > 0)
+        ret = ft_strjoin("0x", ret);
+    return (ret);
+}
 
 char *print_X(va_list va, t_optional *options)
 {
@@ -21,13 +104,16 @@ char *print_X(va_list va, t_optional *options)
     flags = options->flags;
     flags++;
     arg = va_arg(va, unsigned long long);
-    ret = ft_itoa_base((unsigned int)arg, 16);
+    arg = cast_length_u(arg, options);
+    ret = ft_itoa_base(arg, 16);
+    if (options->flags & HASH_FLAG && arg > 0)
+        ret = ft_strjoin("0x", ret);
     return (ret);
 }
 
-char *print_o(va_list va, t_optional *options)
+char *print_O(va_list va, t_optional *options)
 {
-    int arg;
+    unsigned long long arg;
     char *ret;
     int flags;
 
@@ -38,7 +124,7 @@ char *print_o(va_list va, t_optional *options)
     return (ret);
 }
 
-char *print_d(va_list va, t_optional *options)
+char *print_u(va_list va, t_optional *options)
 {
     unsigned long long arg;
     char *ret;
@@ -46,9 +132,36 @@ char *print_d(va_list va, t_optional *options)
 
     flags = options->flags;
     flags++;
-    arg = va_arg(va, int);
-    ret = ft_itoa(arg);
+    arg = va_arg(va, long long);
+    arg = cast_length_u(arg, options);
+    ret = ft_itoa_u(arg);
+    if (options->flags & PLUS_FLAG)
+        ret = ft_strjoin("+", ret);
     return (ret);
+}
+
+char *print_d(va_list va, t_optional *options)
+{
+    long long arg;
+    char *ret;
+    int flags;
+
+    flags = options->flags;
+    flags++;
+    arg = va_arg(va,long long);
+    arg = cast_length(arg, options);
+    ret = ft_itoa(arg);
+    if (options->flags & PLUS_FLAG && arg >= 0)
+        ret = ft_strjoin("+", ret);
+    return (ret);
+}
+
+char *print_s(va_list va, t_optional *options)
+{
+    t_optional *yes;
+    yes = options;
+    yes++;
+    return(va_arg(va, char*));
 }
 
 char *print_c(va_list va, t_optional *options)
@@ -72,20 +185,20 @@ char *print_c(va_list va, t_optional *options)
 }
 
 t_fmt g_fmt_spec[128] = {
-//    ['s'] = {'s', print_s},
-//    ['S'] = {'S', print_S},
-//    ['p'] = {'p', print_p},
+    ['s'] = {'s', print_s},
+    ['S'] = {'S', print_s},
+    //    ['p'] = {'p', print_p},
     ['d'] = {'d', print_d},
 //    ['D'] = {'D', print_D},
     ['i'] = {'i', print_d},
     ['o'] = {'o', print_o},
-//    ['O'] = {'O', print_O},
-//    ['u'] = {'u', print_u},
+    ['O'] = {'O', print_O},
+    ['u'] = {'u', print_u},
 //    ['U'] = {'U', print_U},
-    ['x'] = {'x', print_X},
+    ['x'] = {'x', print_x},
     ['X'] = {'X', print_X},
     ['c'] = {'c', print_c},
-//    ['C'] = {'C', print_C},
+    ['C'] = {'C', print_s},
 };
 
 void get_flags(char x, t_optional *options)
@@ -183,33 +296,33 @@ void get_length_flags(char **str_p, t_optional *options)
 int ft_printf(char *fmt, ...)
 {
     va_list va;
-    char *c = fmt;
+    char *copy = fmt;
     int printed = 0;
     t_optional optional;
     char *str_f;
     ft_bzero(&optional, sizeof(t_optional));
     va_start(va, fmt);
-    while (*c)
+    while (*copy)
     {
-        if (*c == '%')
+        if (*copy == '%')
         {
-            ++c;
-            while(FLAG_SIG(*c))
-                get_flags(*c++, &optional);
-            if (ft_isdigit(*c) || *c == '*')
-                get_width(&c, &optional, va);
-            if (*c == '.')
-                get_precision(&c, &optional, va);
-            if (LENGTH_SIG(*c))
-                get_length_flags(&c, &optional);
-            str_f = g_fmt_spec[(int) *c++].fn(va, &optional);
+            ++copy;
+            while(FLAG_SIG(*copy))
+                get_flags(*copy++, &optional);
+            if (ft_isdigit(*copy) || *copy == '*')
+                get_width(&copy, &optional, va);
+            if (*copy == '.')
+                get_precision(&copy, &optional, va);
+            if (LENGTH_SIG(*copy))
+                get_length_flags(&copy, &optional);
+            str_f = g_fmt_spec[(int) *copy++].fn(va, &optional);
             ft_putstr(str_f);
             printed += ft_strlen(str_f);
         }
         else
         {
             ++printed;
-            ft_putchar(*c++);
+            ft_putchar(*copy++);
         }
     }
     return printed;
