@@ -6,22 +6,22 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/05 15:58:24 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/05 17:46:29 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char *print_x(va_list va, t_optional *options)
+char *print_X(va_list va, t_optional *options)
 {
-    unsigned int arg;
+    unsigned long long arg;
     char *ret;
     int flags;
 
     flags = options->flags;
     flags++;
-    arg = va_arg(va, unsigned int);
-    ret = ft_itoa_base(arg, 16);
+    arg = va_arg(va, unsigned long long);
+    ret = ft_itoa_base((unsigned int)arg, 16);
     return (ret);
 }
 
@@ -40,7 +40,7 @@ char *print_o(va_list va, t_optional *options)
 
 char *print_d(va_list va, t_optional *options)
 {
-    int arg;
+    unsigned long long arg;
     char *ret;
     int flags;
 
@@ -82,8 +82,8 @@ t_fmt g_fmt_spec[128] = {
 //    ['O'] = {'O', print_O},
 //    ['u'] = {'u', print_u},
 //    ['U'] = {'U', print_U},
-    ['x'] = {'x', print_x},
-//    ['X'] = {'X', print_X},
+    ['x'] = {'x', print_X},
+    ['X'] = {'X', print_X},
     ['c'] = {'c', print_c},
 //    ['C'] = {'C', print_C},
 };

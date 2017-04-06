@@ -6,7 +6,7 @@
 /*   By: bmerrill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 20:57:29 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/05 16:10:00 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/05 17:46:33 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct		s_stack
 	int				max_size;
 }					t_stack;
 
-char	*ft_itoa_base(unsigned int value, int base);
+char	*ft_itoa_base(unsigned long long value, int base);
 int					get_next_line(const int fd, char **line);
 void				ft_stackpush(t_stack *stack, t_stackelem element);
 t_stackelem			ft_stackpop(t_stack *stack);
@@ -49,7 +49,7 @@ int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long n);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));

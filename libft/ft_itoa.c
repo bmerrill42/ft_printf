@@ -6,71 +6,116 @@
 /*   By: bmerrill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 14:18:43 by bmerrill          #+#    #+#             */
-/*   Updated: 2016/11/17 10:25:46 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/05 17:44:59 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*assign_char(long n, char *str)
-{
-	int	c;
+/* static char	*assign_char(long n, char *str) */
+/* { */
+/* 	int	c; */
 
-	c = n % 10 + '0';
-	if (n == 0)
+/* 	c = n % 10 + '0'; */
+/* 	if (n == 0) */
+/* 	{ */
+/* 		return (NULL); */
+/* 	} */
+/* 	assign_char(n / 10, str); */
+/* 	while (*str != '\0') */
+/* 		str++; */
+/* 	*str = c; */
+/* 	return (str); */
+/* } */
+
+/* static int	digits(long i) */
+/* { */
+/* 	int	r; */
+
+/* 	r = 0; */
+/* 	while (i > 0) */
+/* 	{ */
+/* 		i /= 10; */
+/* 		r++; */
+/* 	} */
+/* 	return (r); */
+/* } */
+
+/* static char	*iszero(void) */
+/* { */
+/* 	char	*zero; */
+
+/* 	zero = ft_strnew(1); */
+/* 	*zero = '0'; */
+/* 	return (zero); */
+/* } */
+
+/* char		*ft_itoa(unsigned long long n) */
+/* { */
+/* 	char	*str; */
+/* 	int		negative; */
+/* 	unsigned long long	copy; */
+
+/* 	copy = n; */
+/* 	negative = 0; */
+/* 	if (n == 0) */
+/* 		return (iszero()); */
+/* 	if (copy < 0) */
+/* 	{ */
+/* 		copy = -copy; */
+/* 		negative++; */
+/* 	} */
+/* 	if (!(str = ft_strnew(digits(copy) + negative))) */
+/* 		return (NULL); */
+/* 	if (negative > 0) */
+/* 		*str++ = '-'; */
+/* 	assign_char(copy, str); */
+/* 	if (negative != 0) */
+/* 		--str; */
+/* 	return (str); */
+/* } */
+
+static int get_conv_size(long long value, int base)
+{
+	int i;
+
+	i = 0;
+	if (value == 0)
 	{
-		return (NULL);
+		i++;
+		return(i);
 	}
-	assign_char(n / 10, str);
-	while (*str != '\0')
-		str++;
-	*str = c;
-	return (str);
+	while(value)
+	{
+		value /= base;
+		i++;
+	}
+	return(i);
 }
 
-static int	digits(long i)
+char	*ft_itoa(long long n)
 {
-	int	r;
+	int size;
+	char *ret;
+	int neg;
+	char *conv = "0123456789";
 
-	r = 0;
-	while (i > 0)
+	neg = 0;
+	if (n < 0)
 	{
-		i /= 10;
-		r++;
+		neg = 1;
+		n = -n;
 	}
-	return (r);
-}
-
-static char	*iszero(void)
-{
-	char	*zero;
-
-	zero = ft_strnew(1);
-	*zero = '0';
-	return (zero);
-}
-
-char		*ft_itoa(int n)
-{
-	char	*str;
-	int		negative;
-	long	copy;
-
-	copy = (long)n;
-	negative = 0;
-	if (n == 0)
-		return (iszero());
-	if (copy < 0)
+	size = get_conv_size(n, 10);
+	ret = (char*)malloc(sizeof(char) * (size  + neg + 1));
+	if (neg)
+		size++;
+	while(size >= 0)
 	{
-		copy = -copy;
-		negative++;
+		ret[--size] = conv[n % 10];
+		n /= 10;
 	}
-	if (!(str = ft_strnew(digits(copy) + negative)))
-		return (NULL);
-	if (negative > 0)
-		*str++ = '-';
-	assign_char(copy, str);
-	if (negative != 0)
-		--str;
-	return (str);
+	if (neg)
+		ret[0] = '-';
+	return(ret);
 }
