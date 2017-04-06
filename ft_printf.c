@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/05 17:46:29 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/06 12:02:16 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft/libft.h"
 #include <inttypes.h>
 #include <wchar.h>
+
 long long cast_length( long long arg, t_optional *options)
 {
     if (options->flags & HH_FLAG)
@@ -56,13 +57,26 @@ char		*ft_tolower_str(char *str)
 
 	temp = str;
 	while (*temp != '\0')
-        {
-            if (*temp >= 65 && *temp <= 90)
-                *temp += 32;
-            temp++;
-        }
+    {
+        if (*temp >= 65 && *temp <= 90)
+            *temp += 32;
+        temp++;
+    }
 	return (str);
 }
+
+char *padding(int size, char padding_char, size_t arg_length)
+{
+    char *padding_str;
+
+    if (size > arg_length)
+    {
+        padding_str = ft_strnew(size);
+        ft_memset(padding_str, padding_char, size - 1);
+        return(padding_str);
+    }
+}
+
 char *print_o(va_list va, t_optional *options)
 {
     unsigned long long arg;
@@ -75,6 +89,8 @@ char *print_o(va_list va, t_optional *options)
     ret = ft_itoa_base(arg, 8);
     if (options->flags & HASH_FLAG)
         ret = ft_strjoin("0", ret);
+    if (options->flags & WIDTH_FLAG)
+        ret = ft_strjoin(padding(options->width, ' ', ft_strlen(ret)), ret)
     return (ret);
 }
 
