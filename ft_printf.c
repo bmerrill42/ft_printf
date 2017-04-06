@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/06 12:02:16 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/06 12:12:31 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ char		*ft_tolower_str(char *str)
 	return (str);
 }
 
-char *padding(int size, char padding_char, size_t arg_length)
+char *padding(int size, char padding_char, int arg_length)
 {
     char *padding_str;
 
     if (size > arg_length)
     {
-        padding_str = ft_strnew(size);
+        padding_str = ft_strnew(size - arg_length);
         ft_memset(padding_str, padding_char, size - 1);
         return(padding_str);
     }
+    return("");
 }
 
 char *print_o(va_list va, t_optional *options)
@@ -89,8 +90,7 @@ char *print_o(va_list va, t_optional *options)
     ret = ft_itoa_base(arg, 8);
     if (options->flags & HASH_FLAG)
         ret = ft_strjoin("0", ret);
-    if (options->flags & WIDTH_FLAG)
-        ret = ft_strjoin(padding(options->width, ' ', ft_strlen(ret)), ret)
+
     return (ret);
 }
 
@@ -167,6 +167,8 @@ char *print_d(va_list va, t_optional *options)
     arg = va_arg(va,long long);
     arg = cast_length(arg, options);
     ret = ft_itoa(arg);
+    if (options->flags & WIDTH_FLAG)
+        ret = ft_strjoin(padding(options->width, ' ', ft_strlen(ret) - 1), ret);
     if (options->flags & PLUS_FLAG && arg >= 0)
         ret = ft_strjoin("+", ret);
     return (ret);
