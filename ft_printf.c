@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/06 16:54:44 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/07 13:53:37 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char *padding(int size, char padding_char, int arg_length)
     return("");
 }
 
-void do_width(long long arg, char *ret, t_optional* options) {
+char *do_width(long long arg, char *ret, t_optional* options) {
     if (options->flags & WIDTH_FLAG && options->width > ft_strlen(ret))
         {
             if (options->flags & ZERO_FLAG && !(options->flags & MINUS_FLAG) && !(options->flags & PRECISION_FLAG))
@@ -95,7 +95,7 @@ void do_width(long long arg, char *ret, t_optional* options) {
             else
                 ret = ft_strjoin(padding(options->width, ' ', ft_strlen(ret)), ret);
         }
-
+    return (ret);
 }
 
 char *apply_flags(t_optional *options, char *ret, long long arg)
@@ -119,10 +119,10 @@ char *apply_flags(t_optional *options, char *ret, long long arg)
             else
                 ret = ft_strjoin("+", ret);
         }
-    do_width(arg, ret, options);
+    ret = do_width(arg, ret, options);
     return (ret);
 }
-void do_width_u(unsigned long long arg, char *ret, t_optional* options)
+char *do_width_u(unsigned long long arg, char *ret, t_optional* options)
 {
     if (options->flags & WIDTH_FLAG && options->width > ft_strlen(ret))
         {
@@ -139,7 +139,7 @@ void do_width_u(unsigned long long arg, char *ret, t_optional* options)
             else
                 ret = ft_strjoin(padding(options->width, ' ', ft_strlen(ret)), ret);
         }
-
+    return (ret);
 }
 
 char *apply_flags_u(t_optional *options, char *ret, unsigned long long arg)
@@ -157,9 +157,9 @@ char *apply_flags_u(t_optional *options, char *ret, unsigned long long arg)
             if (options->flags & SPACE_FLAG)
                 ret[0] = '+';
             else
-                ret = ft_strjoin("+", ret);
+                ret = ft_strjoin_free("+", ret, FREE_LEFT);
         }
-    do_width_u(arg, ret, options);
+    ret = do_width_u(arg, ret, options);
     return (ret);
 }
 
@@ -204,7 +204,7 @@ char *print_x(va_list va, t_optional *options)
         }
     return (ret);
 }
-kk
+
 char *print_X(va_list va, t_optional *options)
 {
     unsigned long long arg;
@@ -329,7 +329,7 @@ t_fmt g_fmt_spec[128] = {
     ['X'] = {'X', print_X},
     ['c'] = {'c', print_c},
     ['C'] = {'C', print_s},
-    //    ['%'] = {'%', print_mod}
+    ['%'] = {'%', print_mod}
 };
 
 void get_flags(char x, t_optional *options)
@@ -424,7 +424,7 @@ void get_length_flags(char **str_p, t_optional *options)
         }
 }
 
-void do_work(char *str_f, int printed, va_list va, char *copy)
+char *do_work(char *str_f, int printed, va_list va, char *copy, t_optional optional)
 {
     ++copy;
     while(FLAG_SIG(*copy))
@@ -438,7 +438,7 @@ void do_work(char *str_f, int printed, va_list va, char *copy)
     str_f = g_fmt_spec[(int) *copy++].fn(va, &optional);
     ft_putstr(str_f);
     printed += ft_strlen(str_f);
-
+    return (copy);
 }
 
 int ft_printf(char *fmt, ...)
@@ -448,12 +448,13 @@ int ft_printf(char *fmt, ...)
     int printed = 0;
     t_optional optional;
     char *str_f;
+    str_f = NULL;
     ft_bzero(&optional, sizeof(t_optional));
     va_start(va, fmt);
     while (*copy)
         {
             if (*copy == '%')
-                do_work(str_f, printed, va, copy);
+                copy = do_work(str_f, printed, va, copy, optional);
             else
                 {
                     ++printed;

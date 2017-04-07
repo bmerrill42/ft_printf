@@ -6,7 +6,7 @@
 /*   By: bmerrill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 20:57:29 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/05 17:46:33 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/07 13:33:59 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # define BUFF_SIZE 32
+
+enum sides {FREE_LEFT, FREE_RIGHT, FREE_BOTH};
 
 typedef struct		s_list
 {
@@ -35,7 +37,7 @@ typedef struct		s_stack
 }					t_stack;
 
 char				*ft_itoa_u(unsigned long long n);
-char	*ft_strjoin_free(char const *s1, char const *s2);
+char	*ft_strjoin_free(char const *s1, char const *s2, int side);
 char	*ft_itoa_base(unsigned long long value, int base);
 int					get_next_line(const int fd, char **line);
 void				ft_stackpush(t_stack *stack, t_stackelem element);
