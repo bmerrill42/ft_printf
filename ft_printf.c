@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/07 13:53:37 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/07 14:14:12 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -424,7 +424,7 @@ void get_length_flags(char **str_p, t_optional *options)
         }
 }
 
-char *do_work(char *str_f, int printed, va_list va, char *copy, t_optional optional)
+char *do_work(char *str_f, int *printed, va_list va, char *copy, t_optional optional)
 {
     ++copy;
     while(FLAG_SIG(*copy))
@@ -437,7 +437,7 @@ char *do_work(char *str_f, int printed, va_list va, char *copy, t_optional optio
         get_length_flags(&copy, &optional);
     str_f = g_fmt_spec[(int) *copy++].fn(va, &optional);
     ft_putstr(str_f);
-    printed += ft_strlen(str_f);
+    *printed += ft_strlen(str_f);
     return (copy);
 }
 
@@ -454,7 +454,7 @@ int ft_printf(char *fmt, ...)
     while (*copy)
         {
             if (*copy == '%')
-                copy = do_work(str_f, printed, va, copy, optional);
+                copy = do_work(str_f, &printed, va, copy, optional);
             else
                 {
                     ++printed;
