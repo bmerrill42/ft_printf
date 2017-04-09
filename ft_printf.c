@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 23:35:57 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 23:38:51 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <inttypes.h>
 #include <wchar.h>
 
-long long cast_length( long long arg, t_optional *options)
+long long cast_length(long long arg, t_optional *options)
 {
     if (options->flags & HH_FLAG)
         return((char)arg);
@@ -230,10 +230,10 @@ char *print_O(va_list va, t_optional *options)
 
 char *print_u(va_list va, t_optional *options)
 {
-    unsigned long arg;
+    unsigned long long arg;
     char *ret;
 
-    arg = va_arg(va, unsigned long);
+    arg = va_arg(va, unsigned long long);
     arg = cast_length_u(arg, options);
     ret = ft_itoa_u(arg);
     if (options->flags & SPACE_FLAG)
