@@ -304,13 +304,12 @@ char *print_c(va_list va, t_optional *options)
         options->flags |= C_NULL_FLAG;
     if (options->width > 0)
         size = options->width;
-    ret = (char*)malloc(size);
+    ret = ft_strnew(size);
     ft_memset(ret, ' ', size);
     if (!(options->flags & MINUS_FLAG))
         ret[size - 1] = arg;
     else
         ret[0] = arg;
-    ret[size] = '\0';
     return (ret);
 }
 
