@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 23:56:12 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/09 00:34:55 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,8 @@ char *print_c(va_list va, t_optional *options)
 
     size = 1;
     arg = va_arg(va, int);
+    if (arg == 0)
+        options->flags |= C_NULL_FLAG;
     if (options->width > 0)
         size = options->width;
     ret = (char*)malloc(size);
@@ -435,11 +437,10 @@ char *do_work(char *str_f, int *printed, va_list va, char *copy, t_optional opti
         get_length_flags(&copy, &optional);
     str_f = g_fmt_spec[(int) *copy++].fn(va, &optional);
     if (!str_f)
-        ft_putstr("(null)");
-    else
-        ft_putstr(str_f);
-    if (!*str_f)
-        *printed++;
+        str_f = "(null)";
+    ft_putstr(str_f);
+    if (optional.flags & C_NULL_FLAG)
+        *printed += 1;
     *printed += ft_strlen(str_f);
     return (copy);
 }
@@ -463,6 +464,8 @@ int ft_printf(char *fmt, ...)
                     ++printed;
                     ft_putchar(*copy++);
                 }
+            if (str_f)
+                ft_strdel(&str_f);
         }
     return printed;
 }
