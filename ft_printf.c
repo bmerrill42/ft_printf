@@ -300,6 +300,9 @@ char *print_c(va_list va, t_optional *options)
     char *ret;
 
     size = 1;
+    ret = NULL;
+    if (options->flags & HASH_FLAG)
+        return (ret);
     arg = va_arg(va, int);
     if (arg == 0)
         options->flags |= C_NULL_FLAG;
