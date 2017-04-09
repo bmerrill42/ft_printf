@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 23:34:37 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 23:35:57 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,7 +301,7 @@ char *print_c(va_list va, t_optional *options)
 t_fmt g_fmt_spec[128] = {
     ['s'] = {'s', print_s},
     ['S'] = {'S', print_s},
-    //    ['p'] = {'p', print_p},
+    ['p'] = {'p', print_x},
     ['d'] = {'d', print_d},
     ['D'] = {'D', print_d},
     ['i'] = {'i', print_d},
