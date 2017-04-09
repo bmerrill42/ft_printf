@@ -1,48 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_u.c                                        :+:      :+:    :+:   */
+/*   print_mod.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/09 14:44:10 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 15:43:05 by bmerrill         ###   ########.fr       */
+/*   Created: 2017/04/09 13:52:56 by bmerrill          #+#    #+#             */
+/*   Updated: 2017/04/09 15:15:17 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static int	get_conv_size(uintmax_t value, int base)
+char	*print_mod(va_list va, t_optional *options)
 {
-	int	i;
-
-	i = 0;
-	if (value == 0)
-	{
-		i++;
-		return (i);
-	}
-	while (value)
-	{
-		value /= base;
-		i++;
-	}
-	return (i);
-}
-
-char		*ft_itoa_u(uintmax_t n)
-{
-	int		size;
 	char	*ret;
-	char	*conv;
 
-	conv = "0123456789";
-	size = get_conv_size(n, 10);
-	ret = ft_strnew(size);
-	while (size >= 0)
-	{
-		ret[--size] = conv[n % 10];
-		n /= 10;
-	}
+	va = NULL;
+	va++;
+	ret = "%";
+	if (options->flags & SPACE_FLAG)
+		options->flags ^= SPACE_FLAG;
+	if (options->flags & PRECISION_FLAG)
+		options->flags ^= PRECISION_FLAG;
+	ret = apply_flags(options, ret, 1);
 	return (ret);
 }

@@ -1,48 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_u.c                                        :+:      :+:    :+:   */
+/*   print_u.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/09 14:44:10 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 15:43:05 by bmerrill         ###   ########.fr       */
+/*   Created: 2017/04/09 14:13:22 by bmerrill          #+#    #+#             */
+/*   Updated: 2017/04/09 15:17:45 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static int	get_conv_size(uintmax_t value, int base)
+char	*print_u(va_list va, t_optional *options)
 {
-	int	i;
+	uintmax_t	arg;
+	char		*ret;
 
-	i = 0;
-	if (value == 0)
-	{
-		i++;
-		return (i);
-	}
-	while (value)
-	{
-		value /= base;
-		i++;
-	}
-	return (i);
-}
-
-char		*ft_itoa_u(uintmax_t n)
-{
-	int		size;
-	char	*ret;
-	char	*conv;
-
-	conv = "0123456789";
-	size = get_conv_size(n, 10);
-	ret = ft_strnew(size);
-	while (size >= 0)
-	{
-		ret[--size] = conv[n % 10];
-		n /= 10;
-	}
+	arg = va_arg(va, uintmax_t);
+	arg = cast_length_u(arg, options);
+	ret = ft_itoa_u(arg);
+	if (options->flags & SPACE_FLAG)
+		options->flags ^= SPACE_FLAG;
+	ret = apply_flags_u(options, ret, arg);
 	return (ret);
 }

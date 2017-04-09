@@ -6,37 +6,38 @@
 /*   By: bmerrill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 14:18:43 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 00:42:42 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/09 14:33:56 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int get_conv_size(long long value, int base)
+static int	get_conv_size(intmax_t value, int base)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (value == 0)
 	{
 		i++;
-		return(i);
+		return (i);
 	}
-	while(value)
+	while (value)
 	{
 		value /= base;
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
-char	*ft_itoa(long long n)
+char		*ft_itoa(intmax_t n)
 {
-	int size;
-	char *ret;
-	int neg;
-	char *conv = "0123456789";
+	int		size;
+	char	*ret;
+	int		neg;
+	char	*conv;
 
+	conv = "0123456789";
 	neg = 0;
 	if (n == -9223372036854775808)
 		return ("-9223372036854775808");
@@ -47,14 +48,13 @@ char	*ft_itoa(long long n)
 	}
 	size = get_conv_size(n, 10);
 	ret = ft_strnew(size + neg);
-	if (neg)
-		size++;
-	while(size >= 0)
+	size += (neg < 0) ? 1 : 0;
+	while (size >= 0)
 	{
 		ret[--size] = conv[n % 10];
 		n /= 10;
 	}
 	if (neg)
 		ret[0] = '-';
-	return(ret);
+	return (ret);
 }
