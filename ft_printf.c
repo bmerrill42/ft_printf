@@ -40,7 +40,7 @@ unsigned long long cast_length_u(unsigned long long arg, t_optional *options)
     if (options->flags & H_FLAG)
         return((unsigned short)arg);
     if (options->flags & LL_FLAG)
-        return(arg);
+        return((unsigned long long)arg);
     if (options->flags & L_FLAG)
         return((unsigned long)arg);
     if (options->flags & J_FLAG)
@@ -245,10 +245,10 @@ char *print_O(va_list va, t_optional *options)
 
 char *print_u(va_list va, t_optional *options)
 {
-    unsigned long long arg;
+    uintmax_t arg;
     char *ret;
 
-    arg = va_arg(va, unsigned long long);
+    arg = va_arg(va, uintmax_t);
     arg = cast_length_u(arg, options);
     ret = ft_itoa_u(arg);
     if (options->flags & SPACE_FLAG)
@@ -259,7 +259,7 @@ char *print_u(va_list va, t_optional *options)
 
 char *print_d(va_list va, t_optional *options)
 {
-    long long arg;
+    intmax_t arg;
     char *ret;
 
     arg = va_arg(va,long long);
@@ -296,10 +296,8 @@ char *print_s(va_list va, t_optional *options)
 char *print_c(va_list va, t_optional *options)
 {
     int arg;
-    int size;
     char *ret;
 
-    size = 1;
     ret = NULL;
     if (options->flags & HASH_FLAG)
         return (ret);
