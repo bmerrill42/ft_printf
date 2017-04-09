@@ -305,7 +305,7 @@ char *print_c(va_list va, t_optional *options)
         options->flags |= C_NULL_FLAG;
     ret = ft_strnew(1);
     *ret = arg;
-    do_width(1, ret, options)
+    ret = do_width(1, ret, options);
     return (ret);
 }
 
