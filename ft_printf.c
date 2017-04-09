@@ -183,10 +183,7 @@ char *print_x(va_list va, t_optional *options)
 {
     unsigned long long arg;
     char *ret;
-    int flags;
 
-    flags = options->flags;
-    flags++;
     arg = va_arg(va, unsigned long long);
     arg = cast_length_u(arg, options);
     ret = ft_itoa_base(arg, 16);
