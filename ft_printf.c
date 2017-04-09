@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 23:44:11 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 23:47:06 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ char *print_p(va_list va, t_optional *options)
 
     arg = va_arg(va, void*);
     ret = ft_itoa_base(arg, 16);
-    ret = ft_strjoin_free("0x", ret, FREE_RIGHT);
+    ret = ft_strjoin("0x", ret);
     return (ret);
 }
 
