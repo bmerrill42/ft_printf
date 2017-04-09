@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 23:33:20 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 23:34:37 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ t_fmt g_fmt_spec[128] = {
     ['S'] = {'S', print_s},
     //    ['p'] = {'p', print_p},
     ['d'] = {'d', print_d},
-    //    ['D'] = {'D', print_D},
+    ['D'] = {'D', print_d},
     ['i'] = {'i', print_d},
     ['o'] = {'o', print_o},
     ['O'] = {'O', print_O},
