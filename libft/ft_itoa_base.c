@@ -7,7 +7,7 @@
 /*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 09:08:01 by exam              #+#    #+#             */
-/*   Updated: 2017/04/05 17:27:40 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 18:59:17 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_itoa_base(unsigned long long value, int base)
 /* 	get the size */
 	size = get_conv_size(value, base);
 /* 	malloc */
-	ret = (char*)malloc(sizeof(char) * (size + 1));
+	ret = ft_strnew(size);
 /* 	convert to base */
 	while(size >= 0)
 	{

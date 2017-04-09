@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 17:25:29 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 23:30:44 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,6 @@ char *apply_flags_u(t_optional *options, char *ret, unsigned long long arg)
                 ret = "";
             ret = ft_strjoin(padding(options->precision, '0', ft_strlen(ret)), ret);
         }
-    if (options->flags & PLUS_FLAG)
-        {
-            if (options->flags & SPACE_FLAG)
-                ret[0] = '+';
-            else
-                ret = ft_strjoin_free("+", ret, FREE_LEFT);
-        }
     ret = do_width_u(arg, ret, options);
     return (ret);
 }
@@ -167,15 +160,15 @@ char *print_o(va_list va, t_optional *options)
 {
     unsigned long long arg;
     char *ret;
-    int flags;
-    flags = options->flags;
-    flags++;
+
     arg = va_arg(va, unsigned long long);
     arg = cast_length(arg, options);
     ret = ft_itoa_base(arg, 8);
     if (options->flags & HASH_FLAG)
         ret = ft_strjoin("0", ret);
     ret = apply_flags_u(options, ret, arg);
+    if (options->flags & HASH_FLAG && options->width == 0)
+        ret = ft_strjoin("0", ret);
     return (ret);
 }
 
@@ -206,10 +199,7 @@ char *print_X(va_list va, t_optional *options)
 {
     unsigned long long arg;
     char *ret;
-    int flags;
 
-    flags = options->flags;
-    flags++;
     arg = va_arg(va, unsigned long long);
     arg = cast_length_u(arg, options);
     ret = ft_itoa_base(arg, 16);
@@ -231,10 +221,7 @@ char *print_O(va_list va, t_optional *options)
 {
     unsigned long long arg;
     char *ret;
-    int flags;
 
-    flags = options->flags;
-    flags++;
     arg = va_arg(va, int);
     ret = ft_itoa_base(arg, 8);
     ret = apply_flags_u(options, ret, arg);
@@ -243,15 +230,14 @@ char *print_O(va_list va, t_optional *options)
 
 char *print_u(va_list va, t_optional *options)
 {
-    unsigned long long arg;
+    unsigned long arg;
     char *ret;
-    int flags;
 
-    flags = options->flags;
-    flags++;
-    arg = va_arg(va, unsigned long long);
+    arg = va_arg(va, unsigned long);
     arg = cast_length_u(arg, options);
     ret = ft_itoa_u(arg);
+    if (options->flags & SPACE_FLAG)
+        options->flags ^= SPACE_FLAG;
     ret = apply_flags_u(options, ret, arg);
     return (ret);
 }
@@ -260,10 +246,7 @@ char *print_d(va_list va, t_optional *options)
 {
     long long arg;
     char *ret;
-    int flags;
 
-    flags = options->flags;
-    flags++;
     arg = va_arg(va,long long);
     arg = cast_length(arg, options);
     ret = ft_itoa(arg);
@@ -289,9 +272,9 @@ char *print_s(va_list va, t_optional *options)
 {
     char *ret;
     ret = va_arg(va, char*);
-    ret = apply_flags(options, ret, ft_strlen(ret));
     if (options->flags & PRECISION_FLAG)
         ret[options->precision] = '\0';
+    ret = do_width_u(1, ret, options);
     return(ret);
 }
 
@@ -437,7 +420,10 @@ char *do_work(char *str_f, int *printed, va_list va, char *copy, t_optional opti
     if (LENGTH_SIG(*copy))
         get_length_flags(&copy, &optional);
     str_f = g_fmt_spec[(int) *copy++].fn(va, &optional);
-    ft_putstr(str_f);
+    if (!str_f)
+        ft_putstr("(null)");
+    else
+        ft_putstr(str_f);
     *printed += ft_strlen(str_f);
     return (copy);
 }
