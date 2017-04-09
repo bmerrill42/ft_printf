@@ -280,9 +280,9 @@ char *print_mod(va_list va, t_optional *options)
     va = NULL;
     va++;
     ret = "%";
-    if (options->flags | SPACE_FLAG)
+    if (options->flags & SPACE_FLAG)
         options->flags ^= SPACE_FLAG;
-    if (options->flags | PRECISION_FLAG)
+    if (options->flags & PRECISION_FLAG)
         options->flags ^= PRECISION_FLAG;
     ret = apply_flags(options, ret, 1);
     return (ret);
