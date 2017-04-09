@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 01:02:11 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/09 01:04:40 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,10 @@ char *apply_flags_u(t_optional *options, char *ret, unsigned long long arg)
 
 char *print_o(va_list va, t_optional *options)
 {
-    unsigned long long arg;
+    unsigned int arg;
     char *ret;
 
-    arg = va_arg(va, unsigned long long);
+    arg = va_arg(va, unsigned int);
     arg = cast_length(arg, options);
     ret = ft_itoa_base(arg, 8);
     if (options->flags & HASH_FLAG)
