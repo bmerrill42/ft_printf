@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 23:38:51 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 23:44:11 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,17 @@ char *print_o(va_list va, t_optional *options)
     return (ret);
 }
 
+char *print_p(va_list va, t_optional *options)
+{
+    unsigned long long arg;
+    char *ret;
+
+    arg = va_arg(va, void*);
+    ret = ft_itoa_base(arg, 16);
+    ret = ft_strjoin_free("0x", ret, FREE_RIGHT);
+    return (ret);
+}
+
 char *print_x(va_list va, t_optional *options)
 {
     unsigned long long arg;
@@ -301,14 +312,14 @@ char *print_c(va_list va, t_optional *options)
 t_fmt g_fmt_spec[128] = {
     ['s'] = {'s', print_s},
     ['S'] = {'S', print_s},
-    ['p'] = {'p', print_x},
+    ['p'] = {'p', print_p},
     ['d'] = {'d', print_d},
     ['D'] = {'D', print_d},
     ['i'] = {'i', print_d},
     ['o'] = {'o', print_o},
     ['O'] = {'O', print_O},
     ['u'] = {'u', print_u},
-    //    ['U'] = {'U', print_U},
+    ['U'] = {'U', print_u},
     ['x'] = {'x', print_x},
     ['X'] = {'X', print_X},
     ['c'] = {'c', print_c},
