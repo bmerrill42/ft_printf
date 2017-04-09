@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 15:03:46 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/08 23:51:54 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/08 23:56:12 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -438,6 +438,8 @@ char *do_work(char *str_f, int *printed, va_list va, char *copy, t_optional opti
         ft_putstr("(null)");
     else
         ft_putstr(str_f);
+    if (!*str_f)
+        *printed++;
     *printed += ft_strlen(str_f);
     return (copy);
 }
