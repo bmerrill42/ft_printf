@@ -179,6 +179,7 @@ char *print_p(va_list va, t_optional *options)
     t_optional *opt;
 
     opt = options;
+    opt += 1;
     arg = (unsigned long long)va_arg(va, void*);
     ret = ft_itoa_base(arg, 16);
     ret = ft_strjoin("0x", ret);
@@ -302,14 +303,9 @@ char *print_c(va_list va, t_optional *options)
     arg = va_arg(va, int);
     if (arg == 0)
         options->flags |= C_NULL_FLAG;
-    if (options->width > 0)
-        size = options->width;
-    ret = ft_strnew(size);
-    ft_memset(ret, ' ', size);
-    if (!(options->flags & MINUS_FLAG))
-        ret[size - 1] = arg;
-    else
-        ret[0] = arg;
+    ret = ft_strnew(1);
+    *ret = arg;
+    do_width(1, ret, options)
     return (ret);
 }
 
