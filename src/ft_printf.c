@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:48:59 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 15:52:57 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/11 14:15:28 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int		ft_printf(char *fmt, ...)
 			++printed;
 			ft_putchar(*copy++);
 		}
-		if (str_f)
-			ft_strdel(&str_f);
 	}
 	return (printed);
 }
