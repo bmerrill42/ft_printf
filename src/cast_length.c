@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:50:23 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 15:14:23 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/11 12:51:28 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ intmax_t	cast_length(intmax_t arg, t_optional *options)
 	if (options->flags & LL_FLAG)
 		return (arg);
 	if (options->flags & L_FLAG)
-		return ((long)arg);
+		return ((unsigned long)arg);
 	if (options->flags & J_FLAG)
 		return ((intmax_t)arg);
 	if (options->flags & Z_FLAG)
