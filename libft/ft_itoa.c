@@ -6,7 +6,7 @@
 /*   By: bmerrill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 14:18:43 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 14:33:56 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/11 12:49:56 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char		*ft_itoa(intmax_t n)
 	}
 	size = get_conv_size(n, 10);
 	ret = ft_strnew(size + neg);
-	size += (neg < 0) ? 1 : 0;
+	size += (neg > 0) ? 1 : 0;
 	while (size >= 0)
 	{
 		ret[--size] = conv[n % 10];
