@@ -11,7 +11,7 @@ FILENAMES = ft_atoi ft_bzero ft_isalnum ft_isalpha ft_isascii ft_isdigit\
 			ft_toupper ft_wordcount ft_lstadd ft_lstdel ft_lstdelone\
 			ft_lstiter ft_lstmap ft_lstnew ft_stackpush ft_stackpop\
 			ft_stackisempty ft_stackinit ft_stackdestroy ft_stackisfull\
-			get_next_line ft_itoa_base ft_strjoin_free ft_itoa_u
+			get_next_line ft_itoa_base ft_strjoin_free ft_itoa_u ft_tolower_str
 CFILES = $(addsuffix .c, $(FILENAMES))
 OFILES = $(addsuffix .o, $(FILENAMES))
 

@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:49:19 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 16:25:52 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/12 16:08:40 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <inttypes.h>
 #include <wchar.h>
 #include <stdarg.h>
-#include "libft.h"
+#include "../libft/libft.h"
 #define FLAG_SIG(x)                                             \
     x == '-' || x == '+' || x == ' ' || x == '#' || x == '0'
 #define LENGTH_SIG(x)                               \
@@ -37,6 +37,8 @@ typedef struct s_fmt{
 
 } t_fmt;
 
+char *ft_strjoin_fl(char *left, char *right);
+char *ft_strjoin_fr(char *left, char *right);
 int		ft_printf(char *fmt, ...);
 char	*print_c(va_list va, t_optional *options);
 char	*print_d(va_list va, t_optional *options);
