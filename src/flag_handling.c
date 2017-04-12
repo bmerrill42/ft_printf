@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:21:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 15:14:24 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/12 12:42:01 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*padding(int size, char padding_char, int arg_length)
 
 char	*do_width(long long arg, char *ret, t_optional *options)
 {
+	char *tmp;
+
 	if (options->flags & WIDTH_FLAG && options->width > ft_strlen(ret))
 	{
 		if (options->flags & ZERO_FLAG && !(options->flags & MINUS_FLAG) && \
@@ -35,16 +37,26 @@ char	*do_width(long long arg, char *ret, t_optional *options)
 			if ((arg < 0 || options->flags & PLUS_FLAG) && \
 				ft_strlen(ret) < options->width)
 				ret[0] = '0';
+			tmp = ret;
 			ret = ft_strjoin(padding(options->width, '0', ft_strlen(ret)), ret);
+			free(tmp);
 			if (arg < 0)
 				ret[0] = '-';
 			if (options->flags & PLUS_FLAG && arg > 0)
 				ret[0] = '+';
 		}
 		if (options->flags & MINUS_FLAG)
+		{
+			tmp = ret;
 			ret = ft_strjoin(ret, padding(options->width, ' ', ft_strlen(ret)));
+			free(tmp);
+		}
 		else
+		{
+			tmp = ret;
 			ret = ft_strjoin(padding(options->width, ' ', ft_strlen(ret)), ret);
+			free(tmp);
+		}
 	}
 	return (ret);
 }
