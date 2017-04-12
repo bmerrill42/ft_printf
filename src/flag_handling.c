@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:21:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/12 12:42:01 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/12 12:47:57 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*do_width(long long arg, char *ret, t_optional *options)
 
 char	*apply_flags(t_optional *options, char *ret, long long arg)
 {
+	char *tmp;
+
 	if (options->flags & SPACE_FLAG && (ret[0] != '-') && \
 		!(options->flags & WIDTH_FLAG))
 		ret = ft_strjoin(" ", ret);
@@ -72,7 +74,9 @@ char	*apply_flags(t_optional *options, char *ret, long long arg)
 			ret = "";
 		if (arg < 0)
 			ret[0] = '0';
+		tmp = ret;
 		ret = ft_strjoin(padding(options->precision, '0', ft_strlen(ret)), ret);
+		free(tmp);
 		if (arg < 0)
 			ret = ft_strjoin("-", ret);
 	}
@@ -81,7 +85,11 @@ char	*apply_flags(t_optional *options, char *ret, long long arg)
 		if (options->flags & SPACE_FLAG)
 			ret[0] = '+';
 		else
+		{
+			tmp = ret;
 			ret = ft_strjoin("+", ret);
+			free(tmp);
+		}
 	}
 	ret = do_width(arg, ret, options);
 	return (ret);
