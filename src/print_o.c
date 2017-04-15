@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 13:54:36 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 15:17:37 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/15 16:11:22 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*print_o(va_list va, t_optional *options)
 {
-	unsigned int	arg;
+	uintmax_t	arg;
 	char			*ret;
 
-	arg = va_arg(va, unsigned int);
+	arg = va_arg(va, uintmax_t);
 	arg = cast_length_u(arg, options);
 	ret = ft_itoa_base(arg, 8);
 	if (options->flags & HASH_FLAG)
@@ -30,11 +30,9 @@ char	*print_o(va_list va, t_optional *options)
 
 char	*print_ou(va_list va, t_optional *options)
 {
-	unsigned long long	arg;
-	char				*ret;
+	char *ret;
 
-	arg = va_arg(va, int);
-	ret = ft_itoa_base(arg, 8);
-	ret = apply_flags_u(options, ret, arg);
+	options->flags |= L_FLAG;
+	ret = print_o(va, options);
 	return (ret);
 }
