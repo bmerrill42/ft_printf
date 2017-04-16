@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:21:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/15 17:51:49 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/16 11:33:55 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*apply_flags_u(t_optional *options, char *ret, unsigned long long arg)
 	if (options->flags & PRECISION_FLAG)
 	{
 		if (options->precision == 0 && arg == 0)
-			ret = "";
+			ret = ft_strnew(0);
 		ret = ft_strjoin_fbr(padding(options->precision, '0', ft_strlen(ret)), ret);
 	}
 	ret = do_width_u(arg, ret, options);

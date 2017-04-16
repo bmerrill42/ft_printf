@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:52:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/09 15:17:47 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/16 11:33:57 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*print_x(va_list va, t_optional *options)
 	{
 		if (!((options->flags & (WIDTH_FLAG | ZERO_FLAG)) == \
 				(WIDTH_FLAG | ZERO_FLAG)) || (options->flags & MINUS_FLAG))
-			ret = ft_strjoin("0x", ret);
+			ret = ft_strjoin_fr("0x", ret);
 	}
 	ret = apply_flags_u(options, ret, arg);
 	if ((options->flags & (ZERO_FLAG | HASH_FLAG | WIDTH_FLAG)) == \
@@ -49,7 +49,7 @@ char	*print_xu(va_list va, t_optional *options)
 	{
 		if (!((options->flags & (WIDTH_FLAG | ZERO_FLAG)) == \
 				(WIDTH_FLAG | ZERO_FLAG)) || (options->flags & MINUS_FLAG))
-			ret = ft_strjoin("0X", ret);
+			ret = ft_strjoin_fr("0X", ret);
 	}
 	ret = apply_flags_u(options, ret, arg);
 	if ((options->flags & (ZERO_FLAG | HASH_FLAG | WIDTH_FLAG)) == \
