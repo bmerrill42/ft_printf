@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:48:59 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/15 16:42:19 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/15 17:47:06 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		ft_printf(char *fmt, ...)
 	while (*copy)
 	{
 		if (*copy == '%')
-			copy = do_work(str_f, &printed, va, copy, optional);
+			copy = do_work(&printed, va, copy, optional);
 		else
 		{
 			++printed;
