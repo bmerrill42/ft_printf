@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:48:59 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/15 17:47:06 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/16 13:53:11 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*do_work(int *printed, va_list va, char *copy, t_optional optional)
 		get_precision(&copy, &optional, va);
 	if (LENGTH_SIG(*copy))
 		get_length_flags(&copy, &optional);
-	str_f = g_fmt_spec[(int)*copy++].fn(va, &optional);
+	if (g_fmt_spec[(int)*copy].c)
+		str_f = g_fmt_spec[(int)*copy++].fn(va, &optional);
 	if (!str_f)
 		str_f = ft_strdup("(null)");
 	ft_putstr(str_f);
