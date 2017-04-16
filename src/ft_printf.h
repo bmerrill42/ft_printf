@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:49:19 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/15 16:12:05 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/16 13:16:58 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,14 @@ char		*print_x(va_list va, t_optional *options);
 char		*print_xu(va_list va, t_optional *options);
 char		*print_ou(va_list va, t_optional *options);
 char		*padding(int size, char padding_char, int arg_length);
-char		*do_width(long long arg, char *ret, t_optional *options);
-char		*apply_flags_u(t_optional *options, char *ret, unsigned long long arg);
-char		*do_width_u(unsigned long long arg, char *ret, t_optional *options);
-char		*apply_flags_u(t_optional *options, char *ret, unsigned long long arg);
+char		*do_width(intmax_t arg, char *ret, t_optional *options);
+char		*do_width_u(uintmax_t arg, char *ret, t_optional *options);
+char		*apply_flags_u(t_optional *options, char *ret, uintmax_t arg);
 void		get_flags(char x, t_optional *options);
 void		get_precision(char **str_p, t_optional *options, va_list va);
 void		get_width(char **str_p, t_optional *options, va_list va);
 void		get_length_flags(char **str_p, t_optional *options);
 uintmax_t	cast_length_u(uintmax_t arg, t_optional *options);
 intmax_t	cast_length(intmax_t arg, t_optional *options);
-char		*apply_flags(t_optional *options, char *ret, long long arg);
+char		*apply_flags(t_optional *options, char *ret, intmax_t arg);
 #endif

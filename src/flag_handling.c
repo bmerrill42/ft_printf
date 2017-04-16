@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:21:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/16 13:00:26 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/04/16 13:25:32 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*padding(int size, char padding_char, int arg_length)
 	return (ft_strnew(0));
 }
 
-char	*do_width(long long arg, char *ret, t_optional *options)
+char	*do_width(intmax_t arg, char *ret, t_optional *options)
 {
 	if (options->flags & WIDTH_FLAG && options->width > ft_strlen(ret))
 	{
@@ -49,12 +49,12 @@ char	*do_width(long long arg, char *ret, t_optional *options)
 	return (ret);
 }
 
-char	*apply_flags(t_optional *options, char *ret, long long arg)
+char	*apply_flags(t_optional *options, char *ret, intmax_t arg)
 {
 	if (options->flags & SPACE_FLAG && (ret[0] != '-') && \
 		!(options->flags & WIDTH_FLAG))
 		ret = ft_strjoin_fr(" ", ret);
-	if (options->flags & PRECISION_FLAG && ft_strlen(ret) < options->precision)
+	if (options->flags & PRECISION_FLAG)
 	{
 		if (options->precision == 0 && arg == 0)
 			ret = ft_strnew(0);
@@ -75,7 +75,7 @@ char	*apply_flags(t_optional *options, char *ret, long long arg)
 	return (ret);
 }
 
-char	*do_width_u(unsigned long long arg, char *ret, t_optional *options)
+char	*do_width_u(uintmax_t arg, char *ret, t_optional *options)
 {
 	if (options->flags & WIDTH_FLAG && options->width > ft_strlen(ret))
 	{
@@ -96,7 +96,7 @@ char	*do_width_u(unsigned long long arg, char *ret, t_optional *options)
 	return (ret);
 }
 
-char	*apply_flags_u(t_optional *options, char *ret, unsigned long long arg)
+char	*apply_flags_u(t_optional *options, char *ret, uintmax_t arg)
 {
 	if (options->flags & SPACE_FLAG && ret[0] != '-' && \
 		!(options->flags & WIDTH_FLAG))
