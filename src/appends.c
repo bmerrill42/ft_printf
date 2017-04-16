@@ -37,3 +37,33 @@ char *ft_strjoin_fr(char *left, char *right)
     }
     return (right);
 }
+
+char *ft_strjoin_fbr(char *left, char *right)
+{
+    char *tmp;
+    if (*right || *left == ' ')
+        {
+            tmp = ft_strjoin(left, right);
+            if (*right)
+                ft_strdel(&right);
+            if (*left)
+                ft_strdel(&left);
+            right = tmp;
+        }
+    return (right);
+}
+
+char *ft_strjoin_fbl(char *left, char *right)
+{
+    char *tmp;
+    if (*left || *left == ' ')
+        {
+            tmp = ft_strjoin(left, right);
+            if (*right)
+                ft_strdel(&right);
+            if (*left)
+                ft_strdel(&left);
+            left = tmp;
+        }
+    return (left);
+}

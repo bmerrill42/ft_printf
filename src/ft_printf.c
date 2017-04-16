@@ -30,8 +30,11 @@ t_fmt g_fmt_spec[128] = {
 	['%'] = {'%', print_mod}
 };
 
-char	*do_work(char *str_f, int *printed, va_list va, char *copy, t_optional optional)
+char	*do_work(int *printed, va_list va, char *copy, t_optional optional)
 {
+	char		*str_f;
+
+	str_f = NULL;
 	++copy;
 	while (FLAG_SIG(*copy))
 		get_flags(*copy++, &optional);
@@ -59,11 +62,9 @@ int		ft_printf(char *fmt, ...)
 	char		*copy;
 	int			printed;
 	t_optional	optional;
-	char		*str_f;
 
 	copy = fmt;
 	printed = 0;
-	str_f = NULL;
 	ft_bzero(&optional, sizeof(t_optional));
 	va_start(va, fmt);
 	while (*copy)

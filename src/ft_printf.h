@@ -36,7 +36,8 @@ typedef struct s_fmt{
     char *(*fn)(va_list, t_optional*);
 
 } t_fmt;
-
+char		*ft_strjoin_fbl(char *left, char *right);
+char 		*ft_strjoin_fbr(char *left, char *right);
 char		*ft_strjoin_fl(char *left, char *right);
 char		*ft_strjoin_fr(char *left, char *right);
 int			ft_printf(char *fmt, ...);

@@ -30,13 +30,16 @@ void	get_precision(char **str_p, t_optional *options, va_list va)
 {
 	char	atoi_str[12];
 	int		index;
+	int		star;
 
+	star = 0;
 	index = 0;
 	ft_bzero(atoi_str, 12);
 	(*str_p)++;
 	if (*(*str_p) == '*')
 	{
-		options->precision = va_arg(va, int);
+		star = va_arg(va, int);
+		options->precision = star;
 		options->flags |= PRECISION_FLAG;
 		(*str_p)++;
 		return ;
@@ -51,12 +54,14 @@ void	get_width(char **str_p, t_optional *options, va_list va)
 {
 	char	atoi_str[12];
 	int		index;
+	int		star;
 
 	index = 0;
 	ft_bzero(atoi_str, 12);
 	if (*(*str_p) == '*')
 	{
-		options->width = va_arg(va, int);
+		star = va_arg(va, int);
+		options->width = star;
 		options->flags |= WIDTH_FLAG;
 		(*str_p)++;
 		return ;
