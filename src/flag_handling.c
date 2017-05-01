@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:21:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/05/01 16:53:24 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/01 16:55:31 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*apply_flags(t_optional *options, char *ret, intmax_t arg)
 	}
 	ret = do_width(arg, ret, options);
 	if (options->flags & SPACE_FLAG && (ret[0] != '-') && \
-		!(options->flags & WIDTH_FLAG))
+		!(options->flags & WIDTH_FLAG) || options->precision > options->width)
 		ret = ft_strjoin_fr(" ", ret);
 	return (ret);
 }
