@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:12:13 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/12 19:20:55 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/01 16:42:59 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ char	*print_s(va_list va, t_optional *options)
 	if (options->flags & PRECISION_FLAG)
 		ret[options->precision] = '\0';
 	ret = do_width_u(1, ret, options);
+	if (options->flags & SPACE_FLAG)
+		ret = ft_strjoin_fr(" ", ret);
 	return (ret);
 }
