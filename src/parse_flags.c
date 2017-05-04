@@ -6,11 +6,12 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 13:27:47 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/04/12 19:30:54 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:41:27 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#define CHECK(a, b, c) while(1){if(a){options->flags |= b;c;}break;}
 
 void	get_flags(char x, t_optional *options)
 {
@@ -76,16 +77,8 @@ void	get_length_flags(char **str_p, t_optional *options)
 {
 	while (LENGTH_SIG(*(*str_p)))
 	{
-		if (*(*str_p) == 'h' && *(*str_p + 1) == 'h')
-		{
-			options->flags |= HH_FLAG;
-			*str_p += 2;
-		}
-		if (*(*str_p) == 'h' && *(*str_p + 1) != 'h')
-		{
-			options->flags |= H_FLAG;
-			(*str_p)++;
-		}
+		CHECK(*(*str_p) == 'h' && *(*str_p + 1) == 'h', HH_FLAG, *str_p += 2);
+		CHECK(*(*str_p) == 'h' && *(*str_p + 1) != 'h', H_FLAG, (*str_p)++);
 		if (*(*str_p) == 'l' && *(*str_p + 1) == 'l')
 		{
 			options->flags |= LL_FLAG;

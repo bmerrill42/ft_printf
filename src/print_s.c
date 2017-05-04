@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:12:13 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/05/01 16:48:00 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/03 10:53:29 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*print_s(va_list va, t_optional *options)
 {
 	char	*ret;
-	char 	*tmp;
+	char	*tmp;
 
 	tmp = va_arg(va, char*);
 	if (tmp)

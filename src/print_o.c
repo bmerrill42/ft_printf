@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 13:54:36 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/05/01 16:40:21 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/03 17:52:37 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*print_o(va_list va, t_optional *options)
 {
 	uintmax_t	arg;
-	char			*ret;
+	char		*ret;
 
 	arg = va_arg(va, uintmax_t);
 	arg = cast_length_u(arg, options);
@@ -28,7 +28,7 @@ char	*print_o(va_list va, t_optional *options)
 
 char	*print_ou(va_list va, t_optional *options)
 {
-	char *ret;
+	char	*ret;
 
 	options->flags |= L_FLAG;
 	ret = print_o(va, options);

@@ -85,6 +85,7 @@ FT_PRINTF_COMPILED =	parse_flags.o \
 						print_u.o \
 						print_xxu.o \
 						appends.o \
+						apply_space.o \
 
 COMPILED =		$(LIBFT_COMPILED) $(FT_PRINTF_COMPILED)
 

@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:21:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/05/01 16:57:51 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/03 18:54:04 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,19 @@ char	*do_width(intmax_t arg, char *ret, t_optional *options)
 			if ((arg < 0 || options->flags & PLUS_FLAG) && \
 				ft_strlen(ret) < options->width)
 				ret[0] = '0';
-			ret = ft_strjoin_fbr(padding(options->width, '0', ft_strlen(ret)), ret);
+			ret = ft_strjoin_fbr(padding(options->width, '0', ft_strlen(ret)),\
+											ret);
 			if (arg < 0)
 				ret[0] = '-';
 			if (options->flags & PLUS_FLAG && arg > 0)
 				ret[0] = '+';
 		}
 		if (options->flags & MINUS_FLAG)
-			ret = ft_strjoin_fbl(ret, padding(options->width, ' ', ft_strlen(ret)));
+			ret = ft_strjoin_fbl(ret, padding(options->width, ' ', \
+												ft_strlen(ret)));
 		else
-			ret = ft_strjoin_fbr(padding(options->width, ' ', ft_strlen(ret)), ret);
+			ret = ft_strjoin_fbr(padding(options->width, ' ', ft_strlen(ret)),\
+									ret);
 	}
 	return (ret);
 }
@@ -57,7 +60,8 @@ char	*apply_flags(t_optional *options, char *ret, intmax_t arg)
 			ret = ft_strnew(0);
 		if (arg < 0)
 			ret[0] = '0';
-		ret = ft_strjoin_fbr(padding(options->precision, '0', ft_strlen(ret)), ret);
+		ret = ft_strjoin_fbr(padding(options->precision, '0', ft_strlen(ret)),\
+								ret);
 		if (arg < 0)
 			ret = ft_strjoin_fr("-", ret);
 	}
@@ -69,9 +73,8 @@ char	*apply_flags(t_optional *options, char *ret, intmax_t arg)
 			ret = ft_strjoin_fr("+", ret);
 	}
 	ret = do_width(arg, ret, options);
-	if (options->flags & SPACE_FLAG && (ret[0] != '-') && \
-		!(options->flags & WIDTH_FLAG) && options->precision > options->width)
-		ret = ft_strjoin_fr(" ", ret);
+	if (options->flags & SPACE_FLAG)
+		apply_space(&ret);
 	return (ret);
 }
 
@@ -84,29 +87,32 @@ char	*do_width_u(uintmax_t arg, char *ret, t_optional *options)
 		{
 			if ((options->flags & PLUS_FLAG) && ft_strlen(ret) < options->width)
 				ret[0] = '0';
-			ret = ft_strjoin_fbr(padding(options->width, '0', ft_strlen(ret)), ret);
+			ret = ft_strjoin_fbr(padding(options->width, '0', ft_strlen(ret)),\
+									ret);
 			if (options->flags & PLUS_FLAG && arg > 0)
 				ret[0] = '+';
 		}
 		if (options->flags & MINUS_FLAG)
-			ret = ft_strjoin_fbl(ret, padding(options->width, ' ', ft_strlen(ret)));
+			ret = ft_strjoin_fbl(ret, padding(options->width, ' ', \
+									ft_strlen(ret)));
 		else
-			ret = ft_strjoin_fbr(padding(options->width, ' ', ft_strlen(ret)), ret);
+			ret = ft_strjoin_fbr(padding(options->width, ' ', ft_strlen(ret)),\
+									ret);
 	}
 	return (ret);
 }
 
 char	*apply_flags_u(t_optional *options, char *ret, uintmax_t arg)
 {
-	if (options->flags & SPACE_FLAG && ret[0] != '-' && \
-		!(options->flags & WIDTH_FLAG))
-		ret = ft_strjoin_fr(" ", ret);
 	if (options->flags & PRECISION_FLAG)
 	{
 		if (options->precision == 0 && arg == 0)
 			ret = ft_strnew(0);
-		ret = ft_strjoin_fbr(padding(options->precision, '0', ft_strlen(ret)), ret);
+		ret = ft_strjoin_fbr(padding(options->precision, '0', ft_strlen(ret)), \
+								ret);
 	}
 	ret = do_width_u(arg, ret, options);
+	if (options->flags & SPACE_FLAG)
+		apply_space(&ret);
 	return (ret);
 }
