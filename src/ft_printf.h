@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:49:19 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/05/03 18:52:13 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/03 19:03:32 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct				s_fmt {
 
 }							t_fmt;
 
-void						apply_space(char **draft);
+void						apply_space(char **draft, intmax_t ref);
 char						*ft_strjoin_fbl(char *left, char *right);
 char						*ft_strjoin_fbr(char *left, char *right);
 char						*ft_strjoin_fl(char *left, char *right);
