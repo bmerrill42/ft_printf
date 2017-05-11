@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:49:19 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/05/03 19:03:32 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/11 14:52:29 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <inttypes.h>
 # include <wchar.h>
 # include <stdarg.h>
-# include "../libft/libft.h"
+# include "libft.h"
 # define FLAG_SIG(x) x == '-' || x == '+' || x == ' ' || x == '#' || x == '0'
 # define LENGTH_SIG(x) x == 'h' || x == 'l' || x == 'j' || x == 'z'
 
