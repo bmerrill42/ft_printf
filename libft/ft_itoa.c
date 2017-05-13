@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
 static int	get_conv_size(intmax_t value, int base)
 {
@@ -39,7 +40,7 @@ char		*ft_itoa(intmax_t n)
 
 	conv = "0123456789";
 	neg = 0;
-	if (n == -9223372036854775808)
+	if (n == LONG_MIN)
 		return (ft_strdup("-9223372036854775808"));
 	if (n < 0)
 	{

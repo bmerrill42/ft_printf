@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdint.h>
 # define BUFF_SIZE 32
 
 enum	e_sides {FREE_LEFT, FREE_RIGHT, FREE_BOTH};

@@ -97,10 +97,10 @@ $(NAME): $(COMPILED)
 	@echo "Made" $(NAME)
 
 $(LIBFT_COMPILED): %.o: $(LIB_SRC_DIR)/%.c
-	@$(CC) -c $(FLAGS) -I $(LIB_SRC_DIR) $< -o $@
+	@$(CC) -c $(CFLAGS) -I $(LIB_SRC_DIR) $< -o $@
 
 $(FT_PRINTF_COMPILED): %.o: $(PRINTF_SRC_DIR)/%.c
-	@$(CC) -c $(FLAGS) -I $(LIB_SRC_DIR) -I $(PRINTF_SRC_DIR) $< -o $@
+	@$(CC) -c $(CFLAGS) -I $(LIB_SRC_DIR) -I $(PRINTF_SRC_DIR) $< -o $@
 
 clean:
 	@-/bin/rm -rf $(COMPILED)

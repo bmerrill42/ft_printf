@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		isspace(char a)
+static int		ft_isspace(char a)
 {
 	if (a == '\t' || a == '\n' || a == '\v' ||
 		a == '\f' || a == '\r' || a == ' ')
@@ -28,7 +28,7 @@ int				ft_atoi(char *str)
 
 	negative = 0;
 	number = 0;
-	while (isspace(*str) == 1)
+	while (ft_isspace(*str) == 1)
 		str++;
 	if (*str == '-')
 		negative = -1;
