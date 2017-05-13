@@ -51,13 +51,6 @@ $(NAME): $(LIBFT)
 	@ar rc $(NAME) $(OBJ) $(LIBFT) $(FLAGS)
 	@echo "ft_printf: SUCCESS!"
 
-all: $(NAME)
-
-$(NAME): $(COMPILED)
-	@ar rc $(NAME) $(COMPILED)
-	@ranlib $(NAME)
-	@echo "Made" $(NAME)
-
 $(LIBFT_COMPILED): %.o: $(LIB_SRC_DIR)/%.c
 	@$(CC) -c $(CFLAGS) -I $(LIB_SRC_DIR) $< -o $@
 
