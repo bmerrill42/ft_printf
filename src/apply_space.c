@@ -22,7 +22,7 @@ void		apply_space(char **draft, intmax_t ref)
 	i = 0;
 	while (!ft_isdigit((*draft)[i]) && (*draft)[i] != '\0')
 		i++;
-	if ((i > 0 && (*draft)[i - 1] == ' ') || ref < 0 || (*draft)[i - 1] == ' ')
+	if ((i > 0 && (*draft)[i - 1] == ' ') || ref < 0 || (*draft)[i - 1] == '+')
 		return ;
 	else
 	{

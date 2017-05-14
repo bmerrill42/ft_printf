@@ -101,7 +101,7 @@ char	*apply_flags_u(t_optional *options, char *ret, uintmax_t arg)
 {
 	if (options->flags & PRECISION_FLAG)
 	{
-		if (options->precision == 0 && arg == 0)
+		if ((options->precision == 0 && arg == 0) && !(options->flags & HASH_FLAG))
 			ret = ft_strnew(0);
 		ret = ft_strjoin_fbr(padding(options->precision, '0', ft_strlen(ret)), \
 								ret);
