@@ -6,7 +6,7 @@
 /*   By: bmerrill <bmerrill@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 14:21:12 by bmerrill          #+#    #+#             */
-/*   Updated: 2017/05/06 12:50:49 by bmerrill         ###   ########.fr       */
+/*   Updated: 2017/05/14 15:28:46 by bmerrill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*apply_flags(t_optional *options, char *ret, intmax_t arg)
 			ret = ft_strjoin_fr("-", ret);
 	}
 	if (options->flags & PLUS_FLAG && arg >= 0)
-			ret = ft_strjoin_fr("+", ret);
+		ret = ft_strjoin_fr("+", ret);
 	ret = do_width(arg, ret, options);
 	if (options->flags & SPACE_FLAG)
 		apply_space(&ret, arg);
@@ -101,7 +101,8 @@ char	*apply_flags_u(t_optional *options, char *ret, uintmax_t arg)
 {
 	if (options->flags & PRECISION_FLAG)
 	{
-		if ((options->precision == 0 && arg == 0) && !(options->flags & HASH_FLAG))
+		if ((options->precision == 0 && arg == 0) &&
+			!(options->flags & HASH_FLAG))
 			ret = ft_strnew(0);
 		ret = ft_strjoin_fbr(padding(options->precision, '0', ft_strlen(ret)), \
 								ret);
